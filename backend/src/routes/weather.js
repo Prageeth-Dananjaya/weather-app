@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const { getCities, getWeatherByCityCode } = require("../services/openWeather");
 
-router.get("/", async (_, res) => {
+const { checkJwt } = require("../middleware/authz");
+
+router.get("/", checkJwt, async (_, res) => {
   try {
     const cities = getCities();
     const weatherData = await Promise.all(
@@ -15,7 +17,7 @@ router.get("/", async (_, res) => {
   }
 });
 
-router.get("/:cityCode", async (req, res) => {
+router.get("/:cityCode", checkJwt, async (req, res) => {
   try {
     const data = await getWeatherByCityCode(req.params.cityCode);
     res.json(data);

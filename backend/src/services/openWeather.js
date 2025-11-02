@@ -2,7 +2,6 @@ const fs = require("fs");
 const path = require("path");
 const axios = require("axios");
 const NodeCache = require("node-cache");
-const { timeStamp } = require("console");
 
 const cache = new NodeCache({ stdTTL: 300 });
 
